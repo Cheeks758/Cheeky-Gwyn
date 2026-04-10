@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cheeky Gwyn Test</title>
+</head>
+
+<body>
+
+<h1>Cheeky Gwyn 💕 Firebase Test</h1>
+
+<button onclick="sendTest()">Send Message 💌</button>
+
+<div id="messages"></div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getFirestore, collection, addDoc, onSnapshot }
@@ -15,7 +29,7 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // TEST FUNCTION
+  // Send message
   window.sendTest = async function () {
     await addDoc(collection(db, "test"), {
       message: "Hello from Cheeky Gwyn 💕",
@@ -23,14 +37,17 @@
     });
   };
 
-  // LIVE UPDATES
+  // Live updates
   onSnapshot(collection(db, "test"), (snapshot) => {
     const box = document.getElementById("messages");
-    if (!box) return;
-
     box.innerHTML = "";
+
     snapshot.forEach(doc => {
       box.innerHTML += `<p>💌 ${doc.data().message}</p>`;
     });
   });
+
 </script>
+
+</body>
+</html>
